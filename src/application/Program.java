@@ -29,15 +29,13 @@ public class Program {
 		System.out.println("inform an amount to withdraw: ");
 		double amount = sc.nextDouble();
 
-		if (amount>acc.getWithdrawLimit()) {
-			System.out.println("Withdraw error: the amount exceeds the withdraw limit");
-		}
-		else if (amount>acc.getBalance()){
-			System.out.println("Withdraw error: insufficient balance");
-		}
+		String error = acc.validateWithdraw(amount);
+		if (error != null) {
+			System.out.println("Error: " + error );
+		} 
 		else {
-		acc.withdraw(amount);
-		System.out.printf("New balance: %.2f%n", acc.getBalance());
+			acc.withdraw(amount);
+			System.out.printf("New balance: %.2f%n", acc.getBalance());
 		}
 		sc.close();
 

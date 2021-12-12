@@ -38,7 +38,7 @@ public class Account {
 	public Double getBalance() {
 		return balance;
 	}
-	
+
 	public Double setBalance() {
 		return balance;
 	}
@@ -59,4 +59,14 @@ public class Account {
 		balance -= amount;
 	}
 
+	public String validateWithdraw(Double amount) {
+		if (amount > getWithdrawLimit()) {
+			return "The amount exceeds the withdraw limit";
+		} else if (amount > getBalance()) {
+			return "Insufficient balance";
+		}
+		
+		return null;
+
+	}
 }
