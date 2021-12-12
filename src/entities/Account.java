@@ -1,5 +1,7 @@
 package entities;
 
+import model.exception.DomainException;
+
 public class Account {
 
 	private Integer number;
@@ -56,17 +58,17 @@ public class Account {
 	}
 
 	public void withdraw(Double amount) {
+		validateWithdraw(amount);
 		balance -= amount;
 	}
 
-	public String validateWithdraw(Double amount) {
+	private void validateWithdraw(Double amount) {
 		if (amount > getWithdrawLimit()) {
-			return "The amount exceeds the withdraw limit";
-		} else if (amount > getBalance()) {
-			return "Insufficient balance";
+			throw new DomainException("Withdraw error: The amount exceeds the withdraw limit");
 		}
-		
-		return null;
+		if (amount > getBalance()) {
+			throw new DomainException("Withdraw error: Insufficient balance");
+		}
 
 	}
 }
